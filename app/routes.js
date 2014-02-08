@@ -4,6 +4,6 @@ module.exports = function(app){
 		res.json({message: 'Success!'})
 	});
 
-	var controllers = require('./controllers')(app);
+	var players = require('./controllers/players')(app);
 
 }
