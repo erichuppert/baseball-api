@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function(app, connection) {
 
 	// get players from query string
 	app.get('/players', function(req, res){
@@ -16,7 +16,7 @@ module.exports = function(app) {
 		var id = req.params.id;
 		var sql = "SELECT * FROM player WHERE id=" + id
 		connection.query(sql, function(err, row){
-			res.writeHead(200, {'Content-Type', 'application/json'});
+			res.writeHead(200, {'Content-Type': 'application/json'});
 			res.end(JSON.stringify(row))
 		})
 	});

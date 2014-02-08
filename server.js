@@ -7,7 +7,7 @@ var database = require('./config/database');
 var connection = mysql.createConnection(database);
 connection.query('USE baseball');
 
-var routes = require('./app/routes')(app);
+var routes = require('./app/routes')(app, connection);
 
 app.listen(3000);
 console.log('Listening on port 3000');

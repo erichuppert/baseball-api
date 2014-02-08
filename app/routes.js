@@ -1,9 +1,9 @@
-module.exports = function(app){ 
+module.exports = function(app, connection){ 
 	// Connection test
 	app.get('/ping', function(req, res){
 		res.json({message: 'Success!'})
 	});
 
-	var players = require('./controllers/players')(app);
+	var players = require('./controllers/players')(app, connection);
 
 }
