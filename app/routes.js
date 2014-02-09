@@ -5,5 +5,6 @@ module.exports = function(app, connection){
 	});
 
 	var players = require('./controllers/players')(app, connection);
+	var atbats = requre('./controllers/atbats')(app, connection)
 
 }
