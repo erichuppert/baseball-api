@@ -17,8 +17,12 @@ module.exports = function(app, connection) {
 		var id = req.params.id;
 		var sql = "SELECT * FROM player WHERE id=" + id + " LIMIT 1"
 		connection.query(sql, function(err, rows){
-			res.writeHead(200, {'Content-Type': 'application/json'});
-			res.end(JSON.stringify(rows[0]))
+			if (rows) {
+				res.writeHead(200, {'Content-Type': 'application/json'});
+				res.end(JSON.stringify(rows[0]))
+			} else {
+				res.json({status: 'error', message: 'There is no player with that ID'})
+			}
 		})
 	});
 }
