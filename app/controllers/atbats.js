@@ -50,10 +50,9 @@ module.exports = function(app, connection) {
 			res.end(JSON.stringify(rows));
 		})
 	})
-	app.get('/atbats/:gameID/:atbatNum', function(req, res){
-		var gameID = req.params.gameID;
-		var atbatNum = req.params.atbatNum;
-		var atBatSql = "SELECT * FROM atbat WHERE game_id=" + gameID + " AND num=" + atbatNum + " LIMIT 1";
+	app.get('/atbats/:id', function(req, res){
+		var id = req.params.id;
+		var atBatSql = "SELECT * FROM atbat WHERE id=" + id + " LIMIT 1";
 		connection.query(atBatSql, function(err, rows){
 			if (err){
 				res.writeHead(500);
@@ -63,22 +62,20 @@ module.exports = function(app, connection) {
 				if (rows) {
 					atbatResponse = rows[0];
 					// fetch picthes for this atbat
-					pitchesSQL = "SELECT * FROM pitch WHERE game_id=" + gameID + " AND atbat_num=" + atbatNum + " ORDER BY id";
+					pitchesSQL = "SELECT * FROM pitch WHERE atbat_id=" + id + " ORDER BY id asc";
 					connection.query(pitchesSQL, function(err, rows){
 						if (err) {
 							res.writeHead(500);
 							res.send();
 							console.log(err);
 						} else {
-							if (rows) {
-								res.
-							}
+							atbatResponse['pitches'] = rows;
+							res.json(atbatResponse);
 						}
 					})
-
-					res.json()
+					res.json(atbatResponse)
 				} else {
-					res.json({status: 'error', message: 'There is no player with that ID'})
+					res.json({status: 'error', message: 'There is no atbat with that ID'})
 				}
 			}
 		}) 
