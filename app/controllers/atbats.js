@@ -51,7 +51,6 @@ module.exports = function(app, connection) {
 				if (err) {
 					res.send(500, {status: "error", message: err})
 				} else {
-					console.log(rows);
 					res.send(200, rows);
 				}
 			})
@@ -73,7 +72,6 @@ module.exports = function(app, connection) {
 					atbatResponse = rows[0];
 					// fetch picthes for this atbat
 					pitchesSQL = "SELECT * FROM pitch WHERE atbat_id=" + id + " ORDER BY atbat_index asc";
-					console.log(pitchesSQL);
 					connection.query(pitchesSQL, function(err, rows){
 						if (err) {
 							res.send(500, {
