@@ -1,12 +1,24 @@
-module.exports = function(app, connection) {
+	module.exports = function(app, connection) {
 
 	// get players from query string
 	app.get('/players', function(req, res){
 		var name = req.query.name;
+		var positionType = req.query.positionType;
 		if (name) {
-			var sql = "SELECT * FROM player WHERE CONCAT(first, ' ', last) LIKE '%" + name + "%' LIMIT 10";
+			var sql = "SELECT * FROM player WHERE CONCAT(first, ' ', last) LIKE '%" + name + "%'";
+			if (positionType === 'pitcher') {
+				sql += " AND throws IS NOT NULL";
+			} else if (positionType === 'batter') {
+				sql +=  " AND bats IS NOT NULL";
+			}
+			sql += " LIMIT 10"
 			connection.query(sql, function(err, rows){
-				res.send(200, rows);
+				if (err) {
+					res.send(500, {status: 'error', message: err});
+					console.log(err);
+				} else {
+					res.send(200, rows);
+				}
 			})	
 		}
 	});

@@ -1,4 +1,5 @@
-module.exports = function(app, connection){ 
+module.exports = function(app, connection){
+
 	// Connection test
 	app.get('/ping', function(req, res){
 		res.json({message: 'Success!'})
