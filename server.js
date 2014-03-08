@@ -3,9 +3,9 @@ var mysql = require('mysql');
 var app = express();
 
 // intitialize database connection
-var database = require('./config/database');
-var connection = mysql.createConnection(database);
-connection.query('USE baseball');
+var config = require('./config.js');
+var connection = mysql.createConnection(config.database.credentials);
+connection.query('use ' + config.database.name);
 
 var routes = require('./app/routes')(app, connection);
 

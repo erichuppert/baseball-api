@@ -71,12 +71,10 @@ module.exports = function(app, connection) {
 							console.log(err);
 						} else {
 							if (rows) {
-								res.
+								res.send(rows)
 							}
 						}
 					})
-
-					res.json()
 				} else {
 					res.json({status: 'error', message: 'There is no player with that ID'})
 				}
