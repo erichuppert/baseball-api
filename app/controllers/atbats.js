@@ -110,7 +110,7 @@ module.exports = function(app, connection) {
 				if (err) {
 					res.send(500, {status: "error", message: err})
 				} else {
-					var statsNeeded = {'singles': 0, 'doubles': 0, 'triples': 0, 'homeruns': 0};
+					var statsNeeded = {singles: 0, doubles: 0, triples: 0, homeruns: 0, walks: 0};
 					var paCount = 0;
 					for (var i=0; i<rows.length;i++) {
 						stat = rows[i];
